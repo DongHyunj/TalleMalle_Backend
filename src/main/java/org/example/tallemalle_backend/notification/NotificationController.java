@@ -1,14 +1,13 @@
 package org.example.tallemalle_backend.notification;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.RequiredArgsConstructor;
 import org.example.tallemalle_backend.common.model.BaseResponse;
 import org.example.tallemalle_backend.notification.model.NotificationDto;
 import org.example.tallemalle_backend.user.model.AuthUserDetails;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +26,12 @@ public class NotificationController {
     @GetMapping("/summary")
     public ResponseEntity summary(@AuthenticationPrincipal AuthUserDetails user){
         List<NotificationDto.ReadTop5Res> result = notificationService.summary(user);
+        return ResponseEntity.ok(BaseResponse.success(result));
+    }
+
+    @PatchMapping("/readonly/{idx}")
+    public ResponseEntity readOnly(@PathVariable Long idx){
+        NotificationDto.ReadOnlyRes result = notificationService.readOnly(idx);
         return ResponseEntity.ok(BaseResponse.success(result));
     }
 }

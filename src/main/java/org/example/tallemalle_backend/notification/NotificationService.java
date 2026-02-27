@@ -22,4 +22,11 @@ public class NotificationService {
         List<Notification> entitiesTop5 = notificationRepository.findTop5ByUserIdxOrderByCreatedAtDesc(user.getIdx());
         return entitiesTop5.stream().map(NotificationDto.ReadTop5Res::from).toList();
     }
+
+    public NotificationDto.ReadOnlyRes readOnly(Long idx) {
+        Notification entity = notificationRepository.findById(idx).orElseThrow();
+        entity.setRead(true);
+        Notification result = notificationRepository.save(entity);
+        return NotificationDto.ReadOnlyRes.from(result);
+    }
 }
