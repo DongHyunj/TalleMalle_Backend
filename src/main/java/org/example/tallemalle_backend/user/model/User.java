@@ -21,7 +21,7 @@ public class User {
     private String password;
     @Setter
     private boolean enable;
-    @ColumnDefault(value = "ROLE_USER")
+    @ColumnDefault("'ROLE_USER'")
     private String role;
 
 }
