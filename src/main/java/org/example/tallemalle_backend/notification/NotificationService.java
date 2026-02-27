@@ -29,4 +29,12 @@ public class NotificationService {
         Notification result = notificationRepository.save(entity);
         return NotificationDto.ReadOnlyRes.from(result);
     }
+
+    public void readAll(AuthUserDetails user) {
+        List<Notification> entities = notificationRepository.findAllByUserIdx(user.getIdx());
+        for(Notification entity : entities){
+            entity.setRead(true);
+            notificationRepository.save(entity);
+        }
+    }
 }

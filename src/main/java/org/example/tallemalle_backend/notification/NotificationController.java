@@ -34,4 +34,10 @@ public class NotificationController {
         NotificationDto.ReadOnlyRes result = notificationService.readOnly(idx);
         return ResponseEntity.ok(BaseResponse.success(result));
     }
+
+    @PatchMapping("/readall")
+    public ResponseEntity readAll(@AuthenticationPrincipal AuthUserDetails user){
+        notificationService.readAll(user);
+        return ResponseEntity.ok("모두 읽음");
+    }
 }
