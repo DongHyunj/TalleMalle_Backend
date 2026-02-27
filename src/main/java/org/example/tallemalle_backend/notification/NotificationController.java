@@ -23,4 +23,10 @@ public class NotificationController {
         List<NotificationDto.ReadRes> result = notificationService.list(user);
         return ResponseEntity.ok(BaseResponse.success(result));
     }
+
+    @GetMapping("/summary")
+    public ResponseEntity summary(@AuthenticationPrincipal AuthUserDetails user){
+        List<NotificationDto.ReadTop5Res> result = notificationService.summary(user);
+        return ResponseEntity.ok(BaseResponse.success(result));
+    }
 }
