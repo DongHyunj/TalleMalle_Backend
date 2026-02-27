@@ -7,5 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
+    // 전체 알림 조회
     List<Notification> findAllByUserIdx(Long userIdx);
+    // 최신 5개 알림 조회
+    List<Notification> findTop5ByUserIdxOrderByCreatedAtDesc(Long userIdx);
 }

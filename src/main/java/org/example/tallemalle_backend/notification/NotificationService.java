@@ -17,4 +17,9 @@ public class NotificationService {
         List<Notification> entities = notificationRepository.findAllByUserIdx(user.getIdx());
         return entities.stream().map(NotificationDto.ReadRes::from).toList();
     }
+
+    public List<NotificationDto.ReadTop5Res> summary(AuthUserDetails user) {
+        List<Notification> entitiesTop5 = notificationRepository.findTop5ByUserIdxOrderByCreatedAtDesc(user.getIdx());
+        return entitiesTop5.stream().map(NotificationDto.ReadTop5Res::from).toList();
+    }
 }
