@@ -2,6 +2,7 @@ package org.example.tallemalle_backend.user.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -62,6 +63,16 @@ public class AuthUserDetails implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
+    }
+
+    public User toEntity() {
+        return User.builder()
+                .idx(this.idx)
+                .email(this.username)
+                .password(this.password)
+                .enable(this.enable)
+                .role(this.role)
+                .build();
     }
 
 }
