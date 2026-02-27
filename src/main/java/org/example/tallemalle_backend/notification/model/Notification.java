@@ -1,10 +1,7 @@
 package org.example.tallemalle_backend.notification.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.tallemalle_backend.user.model.User;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -22,6 +19,7 @@ public class Notification {
     private String type;
     private String title;
     private String contents;
+    @Setter
     private boolean isRead;
     @CreatedDate
     private LocalDateTime createdAt;

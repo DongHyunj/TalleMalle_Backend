@@ -42,4 +42,18 @@ public class NotificationDto {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    public static class ReadOnlyRes{
+        private Long idx;
+        private boolean isRead;
+
+        public static ReadOnlyRes from(Notification entity){
+            return ReadOnlyRes.builder()
+                    .idx(entity.getIdx())
+                    .isRead(entity.isRead())
+                    .build();
+        }
+    }
 }
