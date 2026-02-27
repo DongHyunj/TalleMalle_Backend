@@ -2,6 +2,7 @@ package org.example.tallemalle_backend.user.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.tallemalle_backend.notification.model.Notification;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public class User {
     @ColumnDefault("'ROLE_USER'")
     private String role;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    List<Notification> notificationList;
 }
