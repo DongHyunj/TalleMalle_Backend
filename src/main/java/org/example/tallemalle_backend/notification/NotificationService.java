@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.example.tallemalle_backend.notification.model.Notification;
 import org.example.tallemalle_backend.notification.model.NotificationDto;
 import org.example.tallemalle_backend.user.model.AuthUserDetails;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +16,12 @@ import java.util.List;
 public class NotificationService {
     private final NotificationRepository notificationRepository;
 
-    public List<NotificationDto.ReadRes> list(AuthUserDetails user) {
-        List<Notification> entities = notificationRepository.findAllByUserIdx(user.getIdx());
-        return entities.stream().map(NotificationDto.ReadRes::from).toList();
+    public NotificationDto.PageRes list(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        Page<Notification> result = notificationRepository.findAll(pageRequest);
+
+        return NotificationDto.PageRes.from(result);
     }
 
     public List<NotificationDto.ReadTop5Res> summary(AuthUserDetails user) {

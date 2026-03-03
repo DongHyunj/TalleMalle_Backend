@@ -3,10 +3,33 @@ package org.example.tallemalle_backend.notification.model;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Locked;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Slice;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class NotificationDto {
+    @Getter
+    @Builder
+    public static class PageRes{
+        private List<ReadRes> boardList;
+        private int totalPage;
+        private long totalCount;
+        private int currentPage;
+        private int currentSize;
+
+        public static PageRes from(Page<Notification> result) {
+            return PageRes.builder()
+                    .boardList(result.get().map(NotificationDto.ReadRes::from).toList())
+                    .totalPage(result.getTotalPages())
+                    .totalCount(result.getTotalElements())
+                    .currentPage(result.getPageable().getPageNumber())
+                    .currentSize(result.getPageable().getPageSize())
+                    .build();
+        }
+    }
+
     @Getter
     @Builder
     public static class ReadRes{

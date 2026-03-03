@@ -18,9 +18,11 @@ public class NotificationController {
     private final NotificationService notificationService;
 
     @GetMapping("/list")
-    public ResponseEntity list(@AuthenticationPrincipal AuthUserDetails user){
-        List<NotificationDto.ReadRes> result = notificationService.list(user);
-        return ResponseEntity.ok(BaseResponse.success(result));
+    public ResponseEntity list(
+            @RequestParam(required = true, defaultValue = "0") int page,
+            @RequestParam(required = true, defaultValue = "10") int size) {
+        NotificationDto.PageRes dto = notificationService.list(page, size);
+        return ResponseEntity.ok(BaseResponse.success(dto));
     }
 
     @GetMapping("/summary")
